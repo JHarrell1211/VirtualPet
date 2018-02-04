@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace VirtualPet
 {
-    class VirtualPet
+    //private static Timer petTimer;
+    public class VirtualPet
     {
+        
         private int hunger;
         private int thirst;
         private int tiredness;
         private int waste;
         private int interact;
+
+       
 
         //Properties
         public int Hunger
@@ -64,33 +69,24 @@ namespace VirtualPet
 
         public void Feed()
         {
-            if (hunger >= 2)
-            {
                 hunger -= 2;
                 tiredness += 1;
                 waste += 2;
                 thirst += 2;
-            }
         }
 
         public void DrinkUp()
         {
-            if (thirst >= 2)
-            {
                 thirst -= 3;
                 waste += 1;
-            }
         }
 
         public void IsTired()
         {
-        if (tiredness >= 5)
-            {
                 tiredness -= 5;
                 hunger += 2;
                 waste += 1;
                 interact += 1;
-            }
         }
 
         public void Potty()
@@ -104,19 +100,39 @@ namespace VirtualPet
 
         public void Play()
         {
-            if (interact >= 3)
-            {
                 interact -= 3;
                 tiredness += 3;
                 hunger += 2;
                 thirst += 2;
                 waste += 1;
-            }
+        }
+
+        public void CheckLevels()
+        {
+            Console.WriteLine("Hunger: " + this.hunger);
+            Console.WriteLine("Thirst: " + this.thirst);
+            Console.WriteLine("Tiredness: " + this.tiredness);
+            Console.WriteLine("Waste: " + this.waste);
+            Console.WriteLine("Interact: " + this.interact);
         }
 
         public void Tick()
         {
+            int i;
+            Random r = new Random();
+            int[] rNum = new int[5];
+            
 
+            for (i = 0; i < 5; i++)
+            {
+                int j = r.Next(-2, 3);
+                rNum[i] = j;
+            }
+            hunger += rNum[0];
+            thirst += rNum[1];
+            tiredness += rNum[2];
+            waste += rNum[3];
+            interact += rNum[4];
         }
 
 

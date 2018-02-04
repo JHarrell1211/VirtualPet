@@ -3,27 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
+
 
 namespace VirtualPet
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-
             VirtualPet bruce = new VirtualPet(0, 6, 1, 4, 9);
-            int i = 0;
             Random r = new Random();
             string[] rFood = new string[4];
             string[] rInteract = new string[2];
             string userChoice = " ";
 
+            Timer
+            petTimer = new System.Timers.Timer();
+            petTimer.Interval = 7000; // 7 second intervals
 
-            do
+            petTimer.AutoReset = true;  // Reset for repeated events
+
+            petTimer.Enabled = true;  // Start timer
+
+            petTimer.Elapsed += Event;  // Create event after elapsed time
+
+            void Event(Object source, System.Timers.ElapsedEventArgs e)
+            {
+                bruce.Tick();
+                Console.WriteLine("Bruce's levels have changed!!");
+            }
+
+            while (userChoice != "7")
             {
 
                 Console.WriteLine("Bruce the Panther");
                 Console.WriteLine("Keep levels as close to zero as possible or Bruce will get angry");
+                Console.WriteLine("Bruce's levels randomly change every 7 seconds");
                 Console.WriteLine("What would you like to do? \n");
                 Console.WriteLine("1. Feed Bruce");
                 Console.WriteLine("2. Give Bruce Water");
@@ -35,28 +51,25 @@ namespace VirtualPet
                 userChoice = (Console.ReadLine());
 
 
-                //if (userChoice == "7")
-                //{
-                //    Console.WriteLine("Bruce doesn't like to be alone and stares angrily as you walk away....");
-                //}
-
                 switch (userChoice)
                 {
                     case "1":
-                        if (bruce.Hunger <= 1)
+                        if (bruce.Hunger  >= 2)
                         {
-                            Console.WriteLine("Bruce walks away, he's not hungry");
+                            bruce.Feed();
+                            Console.WriteLine("You fed Bruce " + Foods(rFood));
                         }
                         else
                         {
-                            Console.WriteLine("You fed Bruce " + Foods(rFood));
+                            Console.WriteLine("Bruce walks away, he is not hungry");
                         }
                         break;
 
                     case "2":
-                        if (bruce.Thirst <= 1)
+                        if (bruce.Thirst >= 2)
                         {
-                            Console.WriteLine("Bruce frowns, he's not thirsty");
+                            bruce.DrinkUp();
+                            Console.WriteLine("Bruce loves cold water");
                         }
                         else
                         {
@@ -65,18 +78,20 @@ namespace VirtualPet
                         break;
 
                     case "3":
-                        if (bruce.Waste <= 2)
+                        if (bruce.Waste >= 3)
                         {
-                            Console.WriteLine("Bruce is not listening, he must not have to go");
+                            bruce.Potty();
+                            Console.WriteLine();
                         }
                         else
                         {
-                            Console.WriteLine("Bruce handles his business");
+                            Console.WriteLine("Bruce ignores you, he must not have to go");
                         }
                         break;
                     case "4":
                         if (bruce.Interact >= 3)
                         {
+                            bruce.Play();
                             Console.WriteLine(Interactions(rInteract));
                         }
                         else
@@ -86,11 +101,19 @@ namespace VirtualPet
                         break;
 
                     case "5":
-
+                        if (bruce.Tiredness >= 5)
+                        {
+                            bruce.IsTired();
+                            Console.WriteLine("Bruce sleeps for 6 hours");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Bruce is not tired");
+                        }
                         break;
 
                     case "6":
-
+                        bruce.CheckLevels();
                         break;
 
                     case "7":
@@ -99,20 +122,26 @@ namespace VirtualPet
                 }
                 Console.WriteLine("");
 
-            } while (userChoice != "7");
 
+                //Timer
+                //petTimer = new System.Timers.Timer();
+                //petTimer.Interval = 3000; // 3 second intervals
 
+                //petTimer.AutoReset = true;  // Reset for repeated events
 
+                //petTimer.Enabled = true;  // Start timer
 
-            //for (i = 0; i < rFood.Length; i++)   
-            //{
-            //    i = r.Next(0, 4);
-            //    //Console.WriteLine("L " + rFood[i]);
-            //}
+                //petTimer.Elapsed += Event;  // Create event after elapsed time
 
+                //void Event(Object source, System.Timers.ElapsedEventArgs e)
+                //{
+                //    bruce.Tick();
+                //}
+            }
 
+        }       
 
-        }
+       
         static string Foods(string[] rFoods)
         {
             int i;
