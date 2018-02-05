@@ -10,22 +10,19 @@ namespace VirtualPet
     //private static Timer petTimer;
     public class VirtualPet
     {
-        
         private int hunger;
         private int thirst;
         private int tiredness;
         private int waste;
         private int interact;
 
-       
-
         //Properties
         public int Hunger
         {
             get { return this.hunger; }
             set { this.hunger = value; }
-        } 
-        
+        }
+
         public int Thirst
         {
             get { return this.thirst; }
@@ -66,27 +63,43 @@ namespace VirtualPet
         }
 
         //Methods
-
         public void Feed()
         {
-                hunger -= 2;
-                tiredness += 1;
-                waste += 2;
-                thirst += 2;
+            hunger -= 2;
+            tiredness += 1;
+            waste += 2;
+            thirst += 2;
         }
 
         public void DrinkUp()
         {
+            if (thirst >= 2)
+            {
                 thirst -= 3;
                 waste += 1;
+                Console.WriteLine("Bruce loves cold water");
+            }
+            else
+            {
+                Console.WriteLine("Bruce loves cold water");
+            }
         }
 
         public void IsTired()
         {
+            if (tiredness >= 5)
+            {
                 tiredness -= 5;
                 hunger += 2;
                 waste += 1;
                 interact += 1;
+                Console.WriteLine("Bruce sleeps for 6 hours");
+            }
+            else
+            {
+                Console.WriteLine("Bruce is not tired");
+            }
+
         }
 
         public void Potty()
@@ -95,16 +108,21 @@ namespace VirtualPet
             {
                 waste -= 3;
                 interact += 2;
+                Console.WriteLine("Bruce poops in your shoe, but is happy now");
+            }
+            else
+            {
+                Console.WriteLine("Bruce ignores you, he must not have to go");
             }
         }
 
         public void Play()
         {
-                interact -= 3;
-                tiredness += 3;
-                hunger += 2;
-                thirst += 2;
-                waste += 1;
+            interact -= 3;
+            tiredness += 3;
+            hunger += 2;
+            thirst += 2;
+            waste += 1;
         }
 
         public void CheckLevels()
@@ -121,11 +139,11 @@ namespace VirtualPet
             int i;
             Random r = new Random();
             int[] rNum = new int[5];
-            
+
 
             for (i = 0; i < 5; i++)
             {
-                int j = r.Next(-2, 3);
+                int j = r.Next(-1, 3);
                 rNum[i] = j;
             }
             hunger += rNum[0];

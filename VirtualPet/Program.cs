@@ -20,9 +20,9 @@ namespace VirtualPet
 
             Timer
             petTimer = new System.Timers.Timer();
-            petTimer.Interval = 7000; // 7 second intervals
+            petTimer.Interval = 12000; // 12 second intervals
 
-            petTimer.AutoReset = true;  // Reset for repeated events
+            petTimer.AutoReset = true;  // Resets for repeated events
 
             petTimer.Enabled = true;  // Start timer
 
@@ -31,15 +31,15 @@ namespace VirtualPet
             void Event(Object source, System.Timers.ElapsedEventArgs e)
             {
                 bruce.Tick();
-                Console.WriteLine("Bruce's levels have changed!!");
+                Console.WriteLine("Bruce's levels have changed!!");  // Prints every 12 seconds to notify user
             }
+
+            Console.WriteLine("Bruce the Panther");
+            Console.WriteLine("Keep levels as close to zero as possible");
+            Console.WriteLine("Bruce's levels randomly change every 12 seconds \n");
 
             while (userChoice != "7")
             {
-
-                Console.WriteLine("Bruce the Panther");
-                Console.WriteLine("Keep levels as close to zero as possible or Bruce will get angry");
-                Console.WriteLine("Bruce's levels randomly change every 7 seconds");
                 Console.WriteLine("What would you like to do? \n");
                 Console.WriteLine("1. Feed Bruce");
                 Console.WriteLine("2. Give Bruce Water");
@@ -49,7 +49,6 @@ namespace VirtualPet
                 Console.WriteLine("6. Check Bruce's levels");
                 Console.WriteLine("7. Exit");
                 userChoice = (Console.ReadLine());
-
 
                 switch (userChoice)
                 {
@@ -66,28 +65,13 @@ namespace VirtualPet
                         break;
 
                     case "2":
-                        if (bruce.Thirst >= 2)
-                        {
-                            bruce.DrinkUp();
-                            Console.WriteLine("Bruce loves cold water");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Bruce loves cold water");
-                        }
+                        bruce.DrinkUp();
                         break;
 
                     case "3":
-                        if (bruce.Waste >= 3)
-                        {
-                            bruce.Potty();
-                            Console.WriteLine();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Bruce ignores you, he must not have to go");
-                        }
+                        bruce.Potty();
                         break;
+
                     case "4":
                         if (bruce.Interact >= 3)
                         {
@@ -101,15 +85,7 @@ namespace VirtualPet
                         break;
 
                     case "5":
-                        if (bruce.Tiredness >= 5)
-                        {
-                            bruce.IsTired();
-                            Console.WriteLine("Bruce sleeps for 6 hours");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Bruce is not tired");
-                        }
+                        bruce.IsTired();
                         break;
 
                     case "6":
@@ -121,27 +97,9 @@ namespace VirtualPet
                         break;
                 }
                 Console.WriteLine("");
-
-
-                //Timer
-                //petTimer = new System.Timers.Timer();
-                //petTimer.Interval = 3000; // 3 second intervals
-
-                //petTimer.AutoReset = true;  // Reset for repeated events
-
-                //petTimer.Enabled = true;  // Start timer
-
-                //petTimer.Elapsed += Event;  // Create event after elapsed time
-
-                //void Event(Object source, System.Timers.ElapsedEventArgs e)
-                //{
-                //    bruce.Tick();
-                //}
             }
-
         }       
-
-       
+      
         static string Foods(string[] rFoods)
         {
             int i;
@@ -157,6 +115,7 @@ namespace VirtualPet
 
             return rFood[i];
         }
+
         static string Interactions(string[] rInteract)
         {
             int i;
