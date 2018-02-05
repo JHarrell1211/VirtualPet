@@ -75,13 +75,13 @@ namespace VirtualPet
         {
             if (thirst >= 2)
             {
-                thirst -= 3;
+                thirst -= 2;
                 waste += 1;
                 Console.WriteLine("Bruce loves cold water");
             }
             else
             {
-                Console.WriteLine("Bruce loves cold water");
+                Console.WriteLine("Bruce is not thirsty");
             }
         }
 
